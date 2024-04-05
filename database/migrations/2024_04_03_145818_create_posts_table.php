@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->string('published_at');
+            $table->string('image')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -7,39 +7,25 @@
         <div id="sidebar-menu">
 
             <ul id="side-menu">
-
                 <li>
-                    <a href="" >
-                        <i class="mdi mdi-view-dashboard-outline"></i>
-                        <span> Dashboard </span>
-                    </a>
-                </li>
-
-
-                <!--========= Start employee manage ==================-->
-
-
-                <li>
-                    <a href="#employee" data-bs-toggle="collapse">
-                        <i class="mdi mdi-cart-outline"></i>
-                        <span>Book Store </span>
+                    <a href="javascript: void(0);" aria-expanded="false">
+                        <i class="nav-icon fas fa-user-secret mx-1"></i>
+                        <span>Blog</span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="employee">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="">All Book</a>
-                            </li>
-                            <li>
-                                <a href="">Add Book</a>
-                            </li>
-
-                        </ul>
-                    </div>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{ route('blog.index') }}">
+                                <i class="fa fa-list mx-1"></i>
+                                <span>List</span>
+                            </a>
+                        </li>
+                        <li><a href="{{ route('blog.create') }}">
+                                <i class="fa fa-list mx-1"></i>
+                                <span>Create</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-
-                <!--========= end employee manage ==================-->
-
 
             </ul>
 

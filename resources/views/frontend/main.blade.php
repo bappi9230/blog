@@ -51,8 +51,18 @@
                 </div>
                 <div class="col-5 col-sm-4">
                     <div style="margin-left: 40%;">
-                        <a href="index.html">Login<span class="text-primary">.</span> </a>|
-                        <a href="index.html">Register</a>
+                        @if (auth()->user())
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        @else
+                            <a href="{{ route('login') }}">Login<span class="text-primary">.</span> </a>|
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
                     </div>
                 </div>
             </div>
