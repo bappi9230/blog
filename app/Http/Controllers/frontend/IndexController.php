@@ -13,4 +13,9 @@ class IndexController extends Controller
             'post' => Post::where('status',1)->latest()->paginate(10),
         ]);
     }
+    public function postDetails($id){
+        return view('frontend.post_details',[
+            'post' => Post::with('comment','user')->findOrFail($id),
+        ]);
+    }
 }

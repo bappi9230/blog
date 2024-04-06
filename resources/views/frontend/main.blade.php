@@ -33,7 +33,7 @@
         <nav class="site-nav">
             <div class="row align-items-center">
                 <div class="col-sm-2 text-lg-left logo d-none d-sm-block pl-3">
-                    <a href="index.html">Blog<span class="text-primary">.</span> </a>
+                    <a href="{{ url('/') }}">Blog<span class="text-primary">.</span> </a>
                 </div>
 
                 <div class="col-7 col-sm-6 text-center top-menu">
@@ -41,9 +41,15 @@
                         <div class="search-wrap">
                             <a href="#" class="d-inline-flex align-items-center js-search-toggle"><span
                                     class="icon-search2 mr-2"></span><span>Search</span></a>
-                            <form action="#" class="d-flex">
-                                <input type="search" id="s" class="form-control"
-                                    placeholder="Enter keyword and hit enter...">
+                            <form method="get" action="#" class="input-wrapper header-search hs-round d-none d-md-flex">
+                                <input type="text" class="form-control" name="search" id="global_search" placeholder="Search in..."
+                                    onfocus="search_result_show()" onblur="search_result_hide()" id="search_area" required />
+
+                                <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
+                                </button>
+                                <div id="searchProducts">
+                                    <h6 id="total"> </h6>
+                                </div>
                             </form>
 
                         </div>
@@ -75,6 +81,34 @@
     @yield('content')
 
     @include('frontend.include.footer')
+    @include('frontend.include.script')
+
+
+    <script>
+        $(document).ready(function() {
+            $('#global_search').on('keyup', function(event) {
+                let data = $(this).val();
+                $.ajax({
+                    url: "{{ route('search') }}",
+                    method: 'GET',
+                    data: {
+                        data
+                    },
+                    dataType: "JSON",
+                    success: function(res) {
+                        if (res.length > 0) {
+                            $('#search').html(res);
+                        } else {
+                            $('#search').html(
+                                `<h4 style="color: #ff1414;text-align: center;padding-top: 16px;"> There is no data</h4>`
+                            );
+                        }
+                    }
+
+                })
+            });
+        });
+    </script>
 </body>
 
 </html>

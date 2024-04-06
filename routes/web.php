@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\backend\AdminpanelController;
 use App\Http\Controllers\backend\BlogController;
+use App\Http\Controllers\frontend\CommentController;
 use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\frontend\SearchController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/search',[SearchController::class,'Search'])->name('search');
+
 Route::prefix('/')->group(function(){
     Route::get('/',[IndexController::class,'Index'])->name('Home');
+    Route::prefix('post')->as('post.')->group(function(){
+        Route::get('details/{post_id}',[IndexController::class,'postDetails'])->name('details');
+        Route::resource('comment',CommentController::class)->except('show','destroy')->middleware('auth');
+    });
 });
 
 
-Route::get('single',function(){
-    return view('frontend.single_page');
-})->name('single');
 
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function(){
